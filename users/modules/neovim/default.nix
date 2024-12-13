@@ -6,7 +6,15 @@
 
     home.packages = with pkgs; [
         rust-analyzer
+        cargo
+        rustc
+
         nixd
+
+        ghc
+        haskell-language-server
+
+        gcc
     ];
 
     xdg = {

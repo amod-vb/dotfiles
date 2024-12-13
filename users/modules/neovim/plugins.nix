@@ -11,8 +11,7 @@
         catppuccin-nvim
 
         # language tools
-        nvim-treesitter.withAllGrammars
+        nvim-treesitter.withAllGrammars 
         nvim-lspconfig
-        rust-tools-nvim
     ];
 }
