@@ -33,46 +33,24 @@
         ];
       }
     ];
-    # buildMachines = [
-    #   {
-    #     hostName = "hydra-aarch64";
-    #     sshUser = "amod";
-    #     sshKey = "/home/amod/.ssh/id_rsa";
-    #     system = "aarch64-linux";
-    #     maxJobs = 4;
-    #     speedFactor = 2;
-    #     supportedFeatures = [
-    #       "nixos-test"
-    #       "benchmark"
-    #       "big-parallel"
-    #       "kvm"
-    #     ];
-    #     mandatoryFeatures = [ ];
-    #   }
-    #   {
-    #     hostName = "hydra-x8664";
-    #     sshUser = "amod";
-    #     sshKey = "/home/amod/.ssh/id_rsa";
-    #     system = "x86_64-linux";
-    #     maxJobs = 4;
-    #     speedFactor = 2;
-    #     supportedFeatures = [
-    #       "nixos-test"
-    #       "benchmark"
-    #       "big-parallel"
-    #       "kvm"
-    #     ];
-    #     mandatoryFeatures = [ ];
-    #   }
-    # ];
+
     distributedBuilds = true;
     extraOptions = ''
       builders-use-substitutes = false
+      max-jobs = 0
       build-cores = 0
       keep-outputs = true
       keep-derivations = false
     '';
-    settings.trusted-users = [ "amod" ];
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+    settings = {
+      trusted-users = [ "amod" ];
+      auto-optimise-store = true;
+    };
   };
 
   programs.ssh = {
