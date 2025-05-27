@@ -11,29 +11,6 @@
   ];
 
   nix = {
-    buildMachines = [
-      {
-        hostName = "nixbuild.vital.company";
-        system = "x86_64-linux";
-        maxJobs = 64;
-        speedFactor = 2;
-        supportedFeatures = [
-          "benchmark"
-          "big-parallel"
-        ];
-      }
-      {
-        hostName = "nixbuild.vital.company";
-        system = "aarch64-linux";
-        maxJobs = 64;
-        speedFactor = 2;
-        supportedFeatures = [
-          "benchmark"
-          "big-parallel"
-        ];
-      }
-    ];
-
     distributedBuilds = true;
     extraOptions = ''
       builders-use-substitutes = false
@@ -42,15 +19,6 @@
       keep-outputs = true
       keep-derivations = false
     '';
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-    settings = {
-      trusted-users = [ "amod" ];
-      auto-optimise-store = true;
-    };
   };
 
   programs.ssh = {
@@ -120,8 +88,6 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
-
-  services.tailscale.enable = true;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
