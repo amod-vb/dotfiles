@@ -23,8 +23,6 @@
       pkgs.ripgrep
       pkgs.gcc
 
-      pkgs.lazygit
-
       pkgs.rust-analyzer
       pkgs.cargo
       pkgs.rustc

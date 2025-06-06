@@ -4,7 +4,6 @@
     # editor tools
     pkgs.vimPlugins.plenary-nvim
     pkgs.vimPlugins.telescope-nvim
-    pkgs.vimPlugins.lazygit-nvim
 
     # language tools
     pkgs.vimPlugins.nvim-lspconfig

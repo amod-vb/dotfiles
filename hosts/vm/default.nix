@@ -14,7 +14,6 @@
     distributedBuilds = true;
     extraOptions = ''
       builders-use-substitutes = false
-      max-jobs = 0
       build-cores = 0
       keep-outputs = true
       keep-derivations = false
@@ -50,30 +49,6 @@
   };
   networking.firewall = {
     allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
-  };
-  networking.wireguard = {
-    enable = true;
-    interfaces.wg0 = {
-      ips = [ "192.168.5.129/32" ];
-      listenPort = 51820;
-      privateKeyFile = "~/.office-vpn/private.key";
-      peers = [
-        {
-          publicKey = "KWwb4c8l4gDtehAARxiE8+M27viZoRoMRtvKJpxjwmk=";
-          allowedIPs = [
-            "192.168.5.1/32"
-            "192.168.5.129/32"
-            "172.16.0.0/16"
-            "192.168.100.0/22"
-            "192.168.150.0/22"
-            "192.168.200.0/23"
-            "192.168.250.0/23"
-            "192.168.1.0/24"
-          ];
-          endpoint = "72.142.27.218:51820";
-        }
-      ];
-    };
   };
 
   # Configure network proxy if necessary
