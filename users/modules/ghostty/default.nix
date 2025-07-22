@@ -8,7 +8,6 @@
       cursor-style-blink = false;
       window-colorspace = "display-p3";
       maximize = true;
-      command = "/Users/amodkala/dotfiles/users/modules/ghostty/tmux.sh";
     };
   };
 }

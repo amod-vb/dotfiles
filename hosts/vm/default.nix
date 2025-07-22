@@ -10,15 +10,15 @@
     ./hardware-configuration.nix
   ];
 
-  nix = {
-    distributedBuilds = true;
-    extraOptions = ''
-      builders-use-substitutes = false
-      build-cores = 0
-      keep-outputs = true
-      keep-derivations = false
-    '';
-  };
+  # nix = {
+  #   distributedBuilds = true;
+  #   extraOptions = ''
+  #     builders-use-substitutes = false
+  #     build-cores = 0
+  #     keep-outputs = true
+  #     keep-derivations = false
+  #   '';
+  # };
 
   programs.ssh = {
     extraConfig = ''

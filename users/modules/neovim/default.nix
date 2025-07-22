@@ -1,9 +1,5 @@
 { pkgs, lib, ... }:
 {
-  imports = [
-    ./plugins.nix
-  ];
-
   xdg = {
     configFile.nvim = {
       source = ./config;
@@ -19,24 +15,38 @@
     vimAlias = true;
     vimdiffAlias = true;
 
+    plugins = [
+      # editor tools
+      pkgs.vimPlugins.plenary-nvim
+      pkgs.vimPlugins.telescope-nvim
+
+      # language tools
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (
+        p: with p; [
+          haskell
+          rust
+          nix
+          lua
+          bash
+          markdown
+          yaml
+          json
+          terraform
+        ]
+      ))
+    ];
+
     extraPackages = [
       pkgs.ripgrep
-      pkgs.gcc
+
+      pkgs.lua-language-server
 
       pkgs.rust-analyzer
-      pkgs.cargo
-      pkgs.rustc
+      pkgs.clippy
+      pkgs.rustfmt
 
       pkgs.nixd
       pkgs.nixfmt-rfc-style
-
-      pkgs.ghc
-      pkgs.haskell-language-server
-      pkgs.cabal-install
     ];
-
-    extraConfig = ''
-      :luafile ~/.config/nvim/lua/init.lua
-    '';
   };
 }

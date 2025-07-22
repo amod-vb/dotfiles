@@ -13,5 +13,10 @@
     neovim.package = pkgs.neovim;
   };
 
-  home.stateVersion = "25.05";
+  home = {
+    packages = [
+      pkgs.claude-code
+    ];
+    stateVersion = "25.05";
+  };
 }
