@@ -30,6 +30,7 @@
   outputs =
     { self, ... }@inputs:
     let
+      # Darwin modules
       darwinModules = [
         ./modules/darwin.nix
         {
@@ -45,18 +46,51 @@
       ];
 
       homeManagerDarwinModules = [
-        ./modules/home-manager.nix
+        ./modules/home-manager-darwin.nix
         {
-          home-manager.users.amod.imports = [ inputs.catppuccin.homeModules.catppuccin ];
+          home-manager.users.amodkala.imports = [ inputs.catppuccin.homeModules.catppuccin ];
         }
         inputs.home-manager.darwinModules.home-manager
       ];
+
+      # NixOS modules
+      nixosModules = [
+        ./modules/nixos
+        {
+          nixpkgs.overlays = [
+            inputs.neovim-nightly-overlay.overlays.default
+          ];
+        }
+      ];
+
+      determinateNixosModules = [
+        inputs.determinate.nixosModules.default
+      ];
+
+      homeManagerNixosModules = [
+        ./modules/home-manager-vm.nix
+        {
+          home-manager.users.amod.imports = [ inputs.catppuccin.homeModules.catppuccin ];
+        }
+        inputs.home-manager.nixosModules.home-manager
+      ];
+
+      # Shared modules
+      remoteBuilderModules = [
+        ./modules/remote-builders.nix
+      ];
     in
     {
-      # nix-darwin configuration output
+      # NixOS VM configuration
+      nixosConfigurations.vm = inputs.nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = nixosModules ++ determinateNixosModules ++ homeManagerNixosModules ++ remoteBuilderModules;
+      };
+
+      # nix-darwin configuration
       darwinConfigurations.mac = inputs.nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        modules = darwinModules ++ determinateDarwinModules ++ homeManagerDarwinModules;
+        modules = darwinModules ++ determinateDarwinModules ++ homeManagerDarwinModules ++ remoteBuilderModules;
       };
     };
 }

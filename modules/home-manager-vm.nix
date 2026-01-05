@@ -9,7 +9,7 @@
         ./opencode
 
         ./catppuccin.nix
-        ./ghostty.nix
+        ./tmux.nix
         ./vcs.nix
         ./zsh.nix
       ];
