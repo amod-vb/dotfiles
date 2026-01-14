@@ -1,4 +1,9 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
+let
+  sshKeyPath = if pkgs.stdenv.isDarwin
+    then "/Users/amodkala/.ssh/id_nixbuild"
+    else "/home/amod/.ssh/id_nixbuild";
+in
 {
   programs.ssh = {
     extraConfig = ''
@@ -7,7 +12,7 @@
         PubkeyAcceptedKeyTypes ssh-ed25519
         ServerAliveInterval 60
         IPQoS throughput
-        IdentityFile ~/.ssh/id_nixbuild
+        IdentityFile ${sshKeyPath}
     '';
 
     knownHosts = {
@@ -26,19 +31,28 @@
         system = "x86_64-linux";
         maxJobs = 64;
         speedFactor = 2;
-        supportedFeatures = [ "benchmark" "big-parallel" ];
+        supportedFeatures = [
+          "benchmark"
+          "big-parallel"
+        ];
       }
       {
         hostName = "nixbuild.vital.company";
         system = "aarch64-linux";
         maxJobs = 64;
         speedFactor = 2;
-        supportedFeatures = [ "benchmark" "big-parallel" ];
+        supportedFeatures = [
+          "benchmark"
+          "big-parallel"
+        ];
       }
     ];
     extraOptions = ''
       builders-use-substitutes = true
     '';
-    settings.max-jobs = lib.mkDefault "auto";
+    settings = {
+      max-jobs = lib.mkDefault "auto";
+      trusted-users = [ "root" "@wheel" ];
+    };
   };
 }

@@ -21,7 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin = {
-      url = "github:amodkala/catppuccin-nix";
+      url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -84,13 +84,15 @@
       # NixOS VM configuration
       nixosConfigurations.vm = inputs.nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
-        modules = nixosModules ++ determinateNixosModules ++ homeManagerNixosModules ++ remoteBuilderModules;
+        modules =
+          nixosModules ++ determinateNixosModules ++ homeManagerNixosModules ++ remoteBuilderModules;
       };
 
       # nix-darwin configuration
       darwinConfigurations.mac = inputs.nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        modules = darwinModules ++ determinateDarwinModules ++ homeManagerDarwinModules ++ remoteBuilderModules;
+        modules =
+          darwinModules ++ determinateDarwinModules ++ homeManagerDarwinModules ++ remoteBuilderModules;
       };
     };
 }
