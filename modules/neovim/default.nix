@@ -43,9 +43,6 @@
     ];
 
     extraPackages = [
-      # telescope
-      pkgs.ripgrep
-
       # lua
       pkgs.lua-language-server
 

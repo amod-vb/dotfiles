@@ -10,6 +10,7 @@
 
         ./catppuccin.nix
         ./ghostty.nix
+        ./ripgrep.nix
         ./vcs.nix
         ./zsh.nix
       ];

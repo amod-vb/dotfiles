@@ -9,6 +9,7 @@
         ./opencode
 
         ./catppuccin.nix
+        ./ripgrep.nix
         ./tmux.nix
         ./vcs.nix
         ./zsh.nix
